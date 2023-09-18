@@ -29,3 +29,18 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);
 });
+
+
+// 예제: 데이터베이스에서 모든 사용자 가져오기
+app.get('/users', (req, res) => {
+  const sql = 'SELECT * FROM users';
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('쿼리 오류: ' + err.message);
+      res.status(500).send('서버 오류');
+      return;
+    }
+    res.json(results);
+    console.log('쿼리 성공');
+  });
+});
